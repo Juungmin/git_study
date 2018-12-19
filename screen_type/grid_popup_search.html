@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+    <meta charset="UTF-8" >
+    <meta name="generator" content="iXebStudio Platform 2.2018.1130.2918">
+    <meta name="ixeb-studio:SaveZOrder" content="undefined">
+    <meta name="ixeb-studio:guide-vline" content="2120,793," >
+    <meta name="ixeb-studio:grid-size" content="10x10" >
+    <meta name="ixeb-studio:screen-size" content="1280x1024" >
+    <meta name="created" content="2016/10/06 19:34" >
+    <link rel="stylesheet" href="../css/samples.css" >
+    <title >grid search</title>
+    <script type="text/javascript" src="../ixeb/ext/jquery/2.2.1/jquery-2.2.1.js" ></script>
+    <script type="text/javascript" src="../ixeb/lib/ixebBase.min.js" ></script>
+    <script type="text/javascript" >
+    
+        /**
+        	 * @작성자 : {USER}
+        	 * @작성날짜 : 2016-10-13
+        	 * @description : cell 더블 클릭 이벤트
+        	 * @params:  {args0}: event객체
+        				 {args1}: grid 객체
+        				 {args2}: 클릭된 cell 객체
+        	 * @return 
+        	 */
+        function onDataCellDblClicked_grid0(args) {
+            //TODO:
+            search();
+        }
+        /**
+         * @작성자 : {USER}
+         * @작성날짜 : 2016-10-12
+         * @description : 컨트롤 영역에서 왼쪽 마우스 버튼을 클릭했을 때 발생하는 이벤트
+         * @return 
+         */
+        function onclick_button1() {
+            //TODO:
+            // var focused = grid0.getView().focusedIndex();
+            // var rowIdx = focused.rowIndex;
+            // var colIdx = focused.column.index();
+            // var data = grid0.getGridData()[rowIdx];
+            // ixeb.window.openModal({
+            //     width: 810,
+            //     height: 250,
+            //     WindowType: 'modal',
+            //     //WindowType : 'popup',
+            //     url: '../screen_type/grid_popup_sample.html'
+            // },  data);
+            
+            ixeb.window.openModal({
+                width: 810,
+                height: 250,
+                WindowType: 'modal',
+                //WindowType : 'popup',
+                url: '../screen_type/grid_popup_sample.html'
+            });
+        }
+        /**
+         * @작성자 : {USER}
+         * @작성날짜 : 2016-10-06
+         * @description :   
+         * @return 
+         */
+        function onInitScreen_body() {
+            //TODO:
+            var columns = [{
+                'name': '진행상태',
+                'fieldName': 'process',
+                'colWidth': 60
+            }, {
+                'name': '공사구분',
+                'fieldName': 'process1',
+                'colWidth': 60
+            }, {
+                'name': '발주번호',
+                'fieldName': 'process2',
+                'colWidth': 100
+            }, {
+                'name': '하도급명',
+                'fieldName': 'process3',
+                'colWidth': 130
+            }, {
+                'name': '공사기간',
+                'fieldName': 'process4',
+                'colWidth': 60
+            }, {
+                'name': '실행금액',
+                'fieldName': 'process5',
+		        'styles' : {'numberFormat': '#,##0'},
+                'colWidth': 100
+            }, {
+                'name': '요청자',
+                'fieldName': 'process6',
+                'colWidth': 60
+            }, {
+                'name': '요청일',
+                'fieldName': 'process7',
+                'colWidth': 120
+            }, {
+                'name': '구분',
+                'fieldName': 'process8',
+                'colWidth': 90
+            }];
+    		grid0.columns = JSON.stringify(columns);
+            //grid0.setColumns(columns);
+            grid0.setColumnProperty(4, 'showCalendarButton', true);
+            grid0.setColumnProperty(5, 'type', 'number');
+            grid0.setColumnProperty(7, 'showCalendarButton', true);
+            grid0.getView().setContextMenu([{
+                label: "엑셀로 저장하기",
+                callback: function() {
+                    grid0.exportData('grid0_context_sample.xlsx');
+                }
+            }, {
+                label: "엑셀로 열기",
+                callback: function() {
+                    var input = $('<input type="file" onchange="grid0.importData(this.files[0]);">');
+                    $(input).click();
+                }
+            }, {
+                label: "셀 데이터 가져오기",
+                callback: function() {
+                    var focused = grid0.getView().focusedIndex();
+                    var rowIdx = focused.rowIndex;
+                    var colIdx = focused.column.index();
+                    alert(grid0.getCellData(rowIdx, colIdx));
+                }
+            }, {
+                label: "-" /* menu separator */
+            }, {
+                label: "잔액조회",
+                callback: search
+            }, {
+                label: "평잔조회"
+            }, {
+                label: "무통내역 조회"
+            }, {
+                label: "거래내역 조회"
+            }, {
+                label: "타점내역 조회"
+            }, {
+                label: "거래제한 조회"
+            }, {
+                label: "수신이미지 조회"
+            }, {
+                label: "-" /* menu separator */
+            }, {
+                label: "계좌 입금",
+                callback: deposite
+            }, {
+                label: "[유통]계좌 입금"
+            }, {
+                label: "외환계좌 입금"
+            }, {
+                label: "동일계좌 다건 입금"
+            }]);
+            var conItems = {
+                "export": {
+                    name: "엑셀로 저장하기",
+                    action: ""
+                },
+                "import": {
+                    name: "엑셀로 열기",
+                    action: ""
+                },
+                "celldata": {
+                    name: "셀 데이터 가져오기",
+                    action: ""
+                },
+                "sep1": "---------",
+                "search": {
+                    name: "잔액조회",
+                    action: search
+                },
+                "search2": {
+                    name: "평잔조회",
+                    action: ""
+                },
+                "search3": {
+                    name: "무통내역 조회",
+                    action: ""
+                },
+                "search4": {
+                    name: "거래내역 조회",
+                    action: ""
+                },
+                "search5": {
+                    name: "타점내역 조회",
+                    action: ""
+                },
+                "search6": {
+                    name: "거래제한 조회",
+                    action: ""
+                },
+                "search7": {
+                    name: "수신이미지 조회",
+                    action: ""
+                },
+                "sep2": "---------",
+                "ibgum": {
+                    name: "계좌 입금",
+                    action: ""
+                },
+                "ibgum2": {
+                    name: "[유통]계좌 입금",
+                    action: ""
+                },
+                "ibgum3": {
+                    name: "외환계좌 입금",
+                    action: ""
+                },
+                "ibgu4": {
+                    name: "동일계좌 다건 입금",
+                    action: ""
+                }
+            };
+            ixeb.contextMenu.setContextMenu('edit1', conItems);
+            var data = [
+                ['작성중', '', '2016-10-13-01', '', '20일', '1234567890', '김철수', '2016-10-11', '테마프로젝트'],
+                ['작성완료', '', '2016-10-13-02', '', '30일', '134556890', '김철수', '2016-10-11', '테마프로젝트'],
+                ['중지', '', '2016-10-13-03', '', '25일', '14564190', '김철수', '2016-10-11', '테마프로젝트'],
+                ['작성전', '', '2016-10-13-04', '', '21일', '1567890', '김철수', '2016-10-11', '테마프로젝트'],
+                ['작성중', '', '2016-10-13-05', '', '23일', '124567890', '김철수', '2016-10-11', '테마프로젝트']
+            ];
+            grid0.setGridData(data);
+        }
+
+        function search() {
+            var focused = grid0.getView().focusedIndex();
+            var rowIdx = focused.rowIndex;
+            var colIdx = focused.column.index();
+            var data = grid0.getGridData()[rowIdx];
+            ixeb.window.openModal({
+                width: 810,
+                height: 300,
+                WindowType: 'popup',
+                //WindowType : 'popup',
+                url: '../screen_type/grid_popup_sample.html'
+            }, undefined, data);
+        }
+        
+        function deposite() {
+        	var node = {"id":"j1_3","text":"입금*","type":"content","url":"../screen_sample/deposite.html","parentLabel":"수신"};
+        	var focused = grid0.getView().focusedIndex();
+            var rowIdx = focused.rowIndex;
+            var colIdx = focused.column.index();
+            
+            var data = grid0.getGridData()[rowIdx][colIdx];
+            parent.createDeposite(node,data);
+        	
+        }
+    </script>
+</head>
+
+<body id="grid_search" oninitscreen="onInitScreen_body();">
+    <div style="top: 8px;left: 8px;position: absolute;width: 800px;height: 40px; padding-left: 8px; padding-right: 8px;" id="div0" class="search-panel">
+        <i-text text="사번 / 성명" style="position: absolute; top: 12px; left: 4px; color: rgb(113, 69, 41); font-weight: bold;" id="text0"></i-text>
+        <i-edit style="width: 119px; position: absolute; top: 7px; left: 73px; height: 22px;" id="edit0" required="required"></i-edit>
+        <i-button text="검색" style="position: absolute; top: 7px; left: 197px; width: 60px; height: 22px; background-size: 100% 100%;" id="button0"></i-button>
+        <i-edit style="width: 171px; position: absolute; top: 7px; left: 261px; height: 22px;" id="edit1"></i-edit>
+        <i-text text="컨설팅지원그룹" style="position: absolute; top: 12px; left: 514px;" id="text2"></i-text>
+        <i-button text="조회" style="position: absolute; top: 7px; left: 724px; width: 60px; height: 22px; background-size: 100% 100%;" id="button1" onclick="onclick_button1(arguments[0])"></i-button>
+    </div>
+    <i-text text="조직 : " style="position: absolute; top: 21px; left: 473px; color: rgb(113, 69, 41); font-weight: bold;" id="text1"></i-text>
+    <i-text text="과장" style="position: absolute; top: 21px; left: 684px;" id="text3"></i-text>
+    <i-text text="조직 : " style="position: absolute; top: 21px; left: 643px; color: rgb(113, 69, 41); font-weight: bold;" id="text4"></i-text>
+    <i-group text="타이틀" style="width: 800px; height: 600px; position: absolute; left: 8px; top: 68px;" id="group0" class="group-panel">
+        <i-grid style="width: 790px; height: 560px; position: absolute; top: 4px; left: 4px; opacity: 0.99;" id="grid0" rowautocount="false" ondatacelldblclicked="onDataCellDblClicked_grid0(arguments);" columncount="0" initrowcount="0" columnlastextend="true" columns="[]"></i-grid>
+    </i-group>
+    <i-button text="등록" style="position: absolute; top: 74px; left: 681px; background-size: 100% 100%;" id="button2" class="group-btn" onclick="onclick_button2(arguments[0])"></i-button>
+    <i-button text="삭제" style="position: absolute; top: 74px; left: 742px; background-size: 100% 100%;" id="button3" class="group-btn"></i-button>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+    <meta name="generator" content="iXebStudio Platform 2.2018.1130.2918">
+    <meta name="ixeb-studio:SaveZOrder" content="undefined">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="ixeb-studio:grid-size" content="10x10">
+    <meta name="ixeb-studio:screen-size" content="1280x1024">
+	<meta name="created" content="2018/12/18 11:12">
+	<title>File title</title>
+	<script type="text/javascript" src="../ixeb/ext/jquery/2.2.1/jquery-2.2.1.min.js"></script>
+	<script type="text/javascript" src="../ixeb/lib/ixebBase.min.js"></script>
+	<!-- From here, enter your script and style. -->
+	<script type="text/javascript">
+	function onchange_combo0(e) {
+        //TODO:
+        panel0.url = './join_value1.html';
+    }
+    
+	function onclick_button0(e) {
+        //TODO:
+        panel0.url = './join_value2.html';
+    }
+    
+	
+	</script>
+</head>
+<body>
+
+    <i-panel style="width: 480px; height: 320px; position: absolute; top: 50px; left: 50px;" id="panel0"></i-panel>
+    <i-combo style="width: 140px; position: absolute; top: 230px; left: 730px;" id="combo0" items="[{'label':'label1','value':'value1'},{'label':'label2','value':'value2'},{'label':'label3','value':'value3'}]" onchange="onchange_combo0(arguments[0])"></i-combo>
+    <i-button text="Button" style="position: absolute; top: 130px; left: 640px;" id="button0" onclick="onclick_button0(arguments[0])"></i-button>
+</body>
+</html>

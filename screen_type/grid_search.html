@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+    <meta charset="UTF-8" >
+    <meta name="ixeb-studio:SaveZOrder" content="undefined">
+    <meta name="modified" content="2016/12/15 12:53">
+    <meta name="generator" content="iXebStudio 1.0.0.1263" >
+    <meta name="ixeb-studio:guide-vline" content="2120,1305,793," >
+    <meta name="ixeb-studio:grid-size" content="10x10" >
+    <meta name="ixeb-studio:screen-size" content="1280x1024" >
+    <meta name="created" content="2016/10/06 19:34" >
+    <link rel="stylesheet" href="../css/samples.css" >
+    <title >grid search</title>
+    <script type="text/javascript" src="../ixeb/ext/jquery/2.2.1/jquery-2.2.1.js" ></script>
+    <script type="text/javascript" src="../ime_lib/socket.js" ></script>
+    <script type="text/javascript" src="../ime_lib/ime.js" ></script>
+    <script type="text/javascript" src="../ime_lib/window.js" ></script>
+    <script type="text/javascript" src="../ixeb/lib/ixebBase.min.js" ></script>
+    <script type="text/javascript" >
+        /**
+         * @작성자 : {USER}
+         * @작성날짜 : 2016-10-06
+         * @description :   
+         * @return 
+         */
+        function onInitScreen_body() {
+            //TODO:
+            var columns = [{
+                'name': '진행상태',
+                'fieldName': 'process',
+                'colWidth': 60
+            }, {
+                'name': '공사구분',
+                'fieldName': 'process1',
+                'colWidth': 60
+            }, {
+                'name': '발주번호',
+                'fieldName': 'process2',
+                'colWidth': 60
+            }, {
+                'name': '하도급명',
+                'fieldName': 'process3',
+                'colWidth': 160
+            }, {
+                'name': '공사기간',
+                'fieldName': 'process4',
+                'colWidth': 80
+            }, {
+                'name': '실행금액',
+                'fieldName': 'process5',
+                'colWidth': 60
+            }, {
+                'name': '요청자',
+                'fieldName': 'process6',
+                'colWidth': 60
+            }, {
+                'name': '요청일',
+                'fieldName': 'process7',
+                'colWidth': 60
+            }, {
+                'name': '구분',
+                'fieldName': 'process8',
+                'colWidth': 60
+            }];
+            grid0.columns = JSON.stringify(columns);
+            grid0.initRowCount = 40;
+            grid0.setColumnProperty(4, 'showCalendarButton', true);
+            grid0.setColumnProperty(5, 'type', 'number');
+            grid0.setColumnProperty(7, 'showCalendarButton', true);
+        }
+    </script>
+</head>
+
+<body id="grid search" oninitscreen="onInitScreen_body();">
+    <div style="top: 8px;left: 8px;position: absolute;width: 800px;height: 40px; padding-left: 8px; padding-right: 8px;" id="div0" class="search-panel">
+        <i-text text="사번 / 성명" style="position: absolute; top: 12px; left: 4px; color: rgb(113, 69, 41); font-weight: bold;" id="text0"></i-text>
+        <i-edit style="width: 119px; position: absolute; top: 7px; left: 73px; height: 22px;" id="edit0" required="required"></i-edit>
+        <i-button text="검색" style="position: absolute; top: 7px; left: 197px; width: 60px; height: 22px; background-size: 100% 100%;" id="button0"></i-button>
+        <i-edit style="width: 171px; position: absolute; top: 7px; left: 261px; height: 22px;" id="edit1"></i-edit>
+        <i-text text="컨설팅지원그룹" style="position: absolute; top: 12px; left: 514px;" id="text2"></i-text>
+        <i-button text="조회" style="position: absolute; top: 7px; left: 724px; width: 60px; height: 22px; background-size: 100% 100%;" id="button1"></i-button>
+    </div>
+    <i-text text="조직 : " style="position: absolute; top: 21px; left: 473px; color: rgb(113, 69, 41); font-weight: bold;" id="text1"></i-text>
+    <i-text text="과장" style="position: absolute; top: 21px; left: 684px;" id="text3"></i-text>
+    <i-text text="조직 : " style="position: absolute; top: 21px; left: 643px; color: rgb(113, 69, 41); font-weight: bold;" id="text4"></i-text>
+    <i-group text="타이틀" style="width: 800px; height: 600px; position: absolute; left: 8px; top: 68px;" id="group0" class="group-panel">
+        <i-grid style="width: 790px; height: 560px; position: absolute; top: 4px; left: 4px; opacity: 0.99;" id="grid0" rowautocount="false" columncount="0" initrowcount="0" columnlastextend="true" columns="[]"></i-grid>
+    </i-group>
+    <i-button text="삭제" style="position: absolute; top: 74px; left: 681px; background-size: 100% 100%;" id="button2" class="group-btn"></i-button>
+    <i-button text="저장" style="position: absolute; top: 74px; left: 742px; background-size: 100% 100%;" id="button3" class="group-btn"></i-button>
+    <i-button text="추가" style="position: absolute; top: 74px; left: 620px; background-size: 100% 100%;" id="button4" class="group-btn"></i-button>
+</body>
+
+</html>
